@@ -1,7 +1,7 @@
 <?php
 	require_once 'config.php'; //lấy thông tin từ config
 	$conn = mysqli_connect($DBHOST, $DBUSER, $DBPW, $DBNAME); // kết nối data
-	$sql = "SELECT ID, trangthai, gioitinh, ketnoi FROM users";
+	$sql = "SELECT ID, trangthai, gioitinh, hangcho, ketnoi FROM users";
 	$result = mysqli_query($conn, $sql);
 	$male = 0;
 	$female = 0;
