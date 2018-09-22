@@ -1,8 +1,11 @@
+
 <?php
 require_once 'config.php'; //lấy thông tin từ config
 $conn = mysqli_connect($DBHOST, $DBUSER, $DBPW, $DBNAME); // kết nối data
 $id = $_GET['id'];
 $noidung = $_GET['noidung'];
+$noidung = substr($noidung,1,strlen($noidung) - 1);
+
 //////// LẤY ID NGƯỜI CHÁT CÙNG ////////////
 function getRelationship($userid) {
   global $conn;
@@ -12,13 +15,12 @@ function getRelationship($userid) {
   $relationship = $row['ketnoi'];
   return $relationship;
 }
-
 ///// Hàm gửi tin nhắn //////////
 
 function sendchat($userid,$noidung){
 global $JSON;
 $payload = '{"'.$JSON.'":"'.$noidung.'"}';
-request($userid,$payload);		
+request($userid,$payload);    
 }
 
 function request($userid,$jsondata) { // hàm gửi chát :)))
@@ -33,12 +35,13 @@ function request($userid,$jsondata) { // hàm gửi chát :)))
   curl_exec($ch);
 }
 $partner = getRelationship($id);
+
 if($partner != 0){
-$check = array('
-','"','đmm','dmm','lồn','buồi','địt','mẹ mày','fuck','vl','cặc','đm','dm','đjt','djt','đkm','dkm','đcm','dcm','cái địt mẹ mày','lồn','buồi','địt','mẹ mày','cặc','đệch mẹ','đệch mẹ','vkl','vcl','đụ');
-$fix = array('\n','\\"','***','***','***','****','***','** ***','****','**','***','**','**','***','***','***','***','***','***','*** *** ** ***','***','***','***','** ***','***','**** **','**** **','***','***','**');
-$noidung =str_replace($check,$fix,mb_strtolower($noidung, 'UTF-8'));
 sendchat($partner,$noidung);
+?>
+
+  
+<?php
 }else{
 echo'{
  "messages": [

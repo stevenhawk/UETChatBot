@@ -43,8 +43,8 @@ request($userid,$payload);
 function outchat($userid) {
   global $conn;
   $partner = getRelationship($userid);
-  mysqli_query($conn, "UPDATE users SET trangthai = 0, ketnoi = NULL, hangcho = 0 WHERE ID = $userid");
-  mysqli_query($conn, "UPDATE users SET trangthai = 0, ketnoi = NULL, hangcho = 0 WHERE ID = $partner");
+  mysqli_query($conn, "UPDATE `users` SET `trangthai` = 0, `ketnoi` = NULL, `hangcho` = 0 WHERE `ID` = $userid");
+  mysqli_query($conn, "UPDATE `users` SET `trangthai` = 0, `ketnoi` = NULL, `hangcho` = 0 WHERE `ID` = $partner");
   sendchat($userid,"💔 Bạn đã dừng chát ! Để tiếp tục hãy gõ 'Start'");
   endchat($partner,"💔 Người lạ đã rời chát ! Để tiếp tục hãy gõ 'Start'");
 }
@@ -53,7 +53,7 @@ function outchat($userid) {
 function hangcho($userid) {
   global $conn;
 
-  $result = mysqli_query($conn, "SELECT hangcho from users WHERE id = $userid");
+  $result = mysqli_query($conn, "SELECT `hangcho` from `users` WHERE `ID` = $userid");
   $row = mysqli_fetch_assoc($result);
 
   return intval($row['hangcho']) !== 0;
@@ -62,7 +62,7 @@ function hangcho($userid) {
 function trangthai($userid) {
   global $conn;
 
-  $result = mysqli_query($conn, "SELECT trangthai from users WHERE id = $userid");
+  $result = mysqli_query($conn, "SELECT `trangthai` from `users` WHERE `ID` = $userid");
   $row = mysqli_fetch_assoc($result);
 
   return intval($row['trangthai']) !== 0;
@@ -109,7 +109,7 @@ echo'{
     }
   ]
 }';
-mysqli_query($conn, "UPDATE users SET hangcho = 0 WHERE id = $ID");
+mysqli_query($conn, "UPDATE `users` SET `hangcho` = 0 WHERE `ID` = $ID");
 }
 }else{
 // nếu đang chát

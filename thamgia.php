@@ -1,3 +1,4 @@
+
 <?php
 
 $ID = $_GET['ID'];// lấy id từ chatfuel
@@ -31,7 +32,7 @@ request($userid,$payload);
 function hangcho($userid) {
   global $conn;
 
-  $result = mysqli_query($conn, "SELECT hangcho from users WHERE id = $userid");
+  $result = mysqli_query($conn, "SELECT `hangcho` from `users` WHERE `ID` = $userid");
   $row = mysqli_fetch_assoc($result);
 
   return intval($row['hangcho']) !== 0;
@@ -41,8 +42,8 @@ function hangcho($userid) {
 function addketnoi($user1, $user2) {
   global $conn;
 
-  mysqli_query($conn, "UPDATE users SET trangthai = 1, ketnoi = $user2, hangcho = 0 WHERE ID = $user1");
-  mysqli_query($conn, "UPDATE users SET trangthai = 1, ketnoi = $user1, hangcho = 0 WHERE ID = $user2");
+  mysqli_query($conn, "UPDATE `users` SET `trangthai` = 1, `ketnoi` = $user2, `hangcho` = 0 WHERE `ID` = $user1");
+  mysqli_query($conn, "UPDATE `users` SET `trangthai` = 1, `ketnoi` = $user1, `hangcho` = 0 WHERE `ID` = $user2");
 }
 /////Tìm kiếm kết nối /////
 
@@ -63,7 +64,7 @@ function ketnoi($userid,$gioitinh) { //tìm người chát
   $partner = $row['ID'];
   // xử lý kiểm tra
   if ($partner == 0) { // nếu người không có ai trong hàng chờ
-  mysqli_query($conn, "UPDATE users SET hangcho = 1 WHERE ID = $userid"); 
+  mysqli_query($conn, "UPDATE `users` SET `hangcho` = 1 WHERE `ID` = $userid"); 
     if($gioitinh == 'male'){
      echo'{
      "messages": [
@@ -144,7 +145,7 @@ function ketnoi($userid,$gioitinh) { //tìm người chát
 function getRelationship($userid) {
   global $conn;
 
-  $result = mysqli_query($conn, "SELECT ketnoi from users WHERE ID = $userid");
+  $result = mysqli_query($conn, "SELECT `ketnoi` from `users` WHERE `ID` = $userid");
   $row = mysqli_fetch_assoc($result);
   $relationship = $row['ketnoi'];
   return $relationship;
@@ -154,7 +155,7 @@ function getRelationship($userid) {
 function trangthai($userid) {
   global $conn;
 
-  $result = mysqli_query($conn, "SELECT trangthai from users WHERE id = $userid");
+  $result = mysqli_query($conn, "SELECT `trangthai` from `users` WHERE `ID` = $userid");
   $row = mysqli_fetch_assoc($result);
 
   return intval($row['trangthai']) !== 0;
